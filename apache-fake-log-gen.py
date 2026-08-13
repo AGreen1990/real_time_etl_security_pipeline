@@ -86,7 +86,16 @@ while (flag):
         increment = datetime.timedelta(seconds=random.randint(30, 300))
     otime += increment
 
-    ip = faker.ipv4()
+    # --- BOTNET SIMULATION START ---
+    attacker_ips = ["114.202.20.1", "198.51.100.5", "203.0.113.10"]
+    attack_chance = random.randint(1, 100)
+
+    if attack_chance <= 20:
+        ip = random.choice(attacker_ips)
+    else:
+        ip = faker.ipv4()
+    # --- BOTNET SIMULATION END ---
+
     dt = otime.strftime('%d/%b/%Y:%H:%M:%S')
     tz = datetime.datetime.now(local).strftime('%z')
     vrb = numpy.random.choice(verb,p=[0.6,0.1,0.1,0.2])
