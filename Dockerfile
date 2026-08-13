@@ -14,4 +14,4 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY stream_processor.py .
 
 # 6. The default command to run when someone turns the container on
-CMD ["python", "stream_processor.py"]
+CMD ["python", "-u", "stream_processor.py"]
