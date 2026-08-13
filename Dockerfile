@@ -5,10 +5,10 @@ FROM python:3.9-slim
 WORKDIR /app
 
 # 3. Copy packing list into the container
-COPY requirements.txt
+COPY requirements.txt .
 
 # 4. Install those libraries inside the container
-RUN pip install --no cache-dir -r requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt
 
 # 5. Copy out actual processor script into the container 
 COPY stream_processor.py .
