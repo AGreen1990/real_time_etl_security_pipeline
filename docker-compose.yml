@@ -1,0 +1,23 @@
+version: '3.8'
+services:
+  generator:
+    build:
+      context: .
+      dockerfile: Dockerfile.generator
+    volumes:
+      - log-volume:/shared
+    command: sh -c "python -u apache-fake-log-gen.py -n 0 -s 0.5 > /shared/access.log"
+
+  processor:
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - log-volume:/shared
+      - ./.env:/app/.env
+    depends_on:
+      - generator
+    restart: always
+
+volumes:
+  log-volume:

@@ -83,7 +83,7 @@ def insert_log(conn, data):
 
 # --- 5. Main Engine ---
 if __name__ == '__main__':
-    LOG_FILE = 'access.log'
+    LOG_FILE = '/shared/access.log'
 
     print("☁️ Connecting to Neon Cloud Database...")
     load_dotenv() #loads the secret .env file
