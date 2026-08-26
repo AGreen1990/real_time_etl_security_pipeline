@@ -6,7 +6,7 @@ services:
       dockerfile: Dockerfile.generator
     volumes:
       - log-volume:/shared
-    command: sh -c "python -u apache-fake-log-gen.py -n 0 -s 0.5 > /shared/access.log"
+    command: sh -c "python -u apache-fake-log-gen.py -n 5000 -s 0.5 > /shared/access.log"
 
   processor:
     build: 

@@ -81,6 +81,16 @@ def insert_log(conn, data):
     conn.commit()
     cursor.close()
 
+def cleanup_old_logs(conn):
+    """ Deletes log records older than 24 hours to maintain rolling window,"""
+    with conn.cursor() as cursor:
+        cursor.execute("""
+            DELETE FROM apache_logs
+            WHERE created_at < NOW() - INTERVAL '1 day';
+        """)
+        conn.commit()
+    print("🧹 Data Cleanup; Purged logs older than 24 hours.")
+
 # --- 5. Main Engine ---
 if __name__ == '__main__':
     LOG_FILE = '/shared/access.log'
@@ -91,6 +101,9 @@ if __name__ == '__main__':
     #Establish connection to the cloud
     neon_conn = psycopg2.connect(os.getenv("NEON_DB_URL"))
     setup_database(neon_conn)
+
+    cleanup_old_logs(neon_conn)
+    
     print("✅ Database connected and table ready!")
 
     ip_tracker = {}
